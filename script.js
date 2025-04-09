@@ -6,7 +6,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
   const message = document.getElementById("message");
 
   try {
-    const response = await fetch("https://login-system-backend-1.onrender.com", {
+    const response = await fetch("https://login-system-backend-1.onrender.com/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),

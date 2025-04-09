@@ -19,7 +19,7 @@ document
     }
 
     try {
-      const response = await fetch("https://login-system-backend-1.onrender.com", {
+      const response = await fetch("https://login-system-backend-1.onrender.com/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }), // Include name
