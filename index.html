@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Email" required autocomplete="username">
+            <div class="password-container">
+                <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
+                <span id="toggleEmoji" class="toggle-password" onclick="togglePassword('password', 'toggleEmoji')">
+                  🙈
+                </span>
+              </div>
+                          
+            <button type="submit" class="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a class="sign-up" href="register/register.html">Sign up</a></p>
+        <p id="message"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

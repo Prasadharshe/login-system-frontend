@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration page</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email" required autocomplete="username">
+            <div class="password-container">
+                <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
+                <p id="passwordValidationMessage" style="color: red; font-size: 14px;"></p>
+                <span id="toggleEmoji" class="toggle-password" onclick="togglePassword('password', 'toggleEmoji')">
+                    🙈
+                </span>
+            </div>            
+            <button type="submit" class="submit">Register</button>
+        </form>
+        <p>Already have an account? <a class="sign-up" href="/index.html">Login</a></p>
+        <p id="registerMessage"></p>
+    </div>
+    <script src="register.js"></script>
+</body>
+</html>

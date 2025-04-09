@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script defer src="dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+    <div class="nav-left">
+        <div class="hamburger-box">
+            <div class="hamburger"> 
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+                <ul class="ul-element">
+                    <!-- <li><a href="#"  class="">📊Statistics</a></li> -->
+                    <li><a href="#" class=""><i class="fa-solid fa-file-pen"></i> Notes</a></li>
+                    <li><a href="#" class=""><i class="fa-solid fa-gear"></i> Settings</a></li>
+                    <li><a href="https://prasadharshe.github.io/vediccounter/" target="_blank" class=""><i class="fa-solid fa-om"></i> Vedic Counter</a></li>
+                </ul>
+        </div>
+        <!-- <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <a href="#">📊Statistics</a>
+        <a href="#">📝Notes</a>
+        <a href="#">⚙️Settings</a> -->
+    </div>
+
+    <!-- <button id="themeButton" >🎨</button> -->
+
+        <!-- <div class="theme-customizer" id="themePopup">
+            <h3>Customize Theme</h3>
+            <label>Background Color: <input type="color" id="bgColorPicker"></label>
+            <label>Text Color: <input type="color" id="textColorPicker"></label>
+            <label>Button Color: <input type="color" id="btnColorPicker"></label>
+            <button class="cust" onclick="resetTheme()">Reset</button>
+            <button class="cust" id="closeThemePopup">Close</button>
+        </div> -->
+    <div class="nav-center">
+        <h1 class="welcome-message" title="Welcome message">Welcome, <span id="username" title="Your username"></span>!</h1>
+    </div>
+
+    <div class="nav-right">       
+        <button class="logout-button" title="Logout">
+        <i class="fa-solid fa-power-off"></i>
+        </button>
+    </div>
+
+    <!-- Logout Confirmation Popup -->
+    <div id="logoutPopup" class="popup">
+        <div class="popup-content">
+            <p>Are you sure you want to logout?</p>
+            <button id="confirmLogout" class="confirm-btn">Yes</button>
+            <button id="cancelLogout" class="cancel-btn">No</button>
+        </div>
+    </div>
+</nav>
+
+    <div class="dashboard-container">
+        <!-- <h1>Welcome, <span id="username"></span>!</h1> -->
+        <p>⚒️This website is under construction ⚒️</p>
+    </div>
+
+
+</body>
+</html>
