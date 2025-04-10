@@ -31,7 +31,7 @@ document
 
       if (response.ok) {
         setTimeout(() => {
-          window.location.href = "/index.html"; // Redirect to login page
+          window.location.href = "./index.html"; // Redirect to login page
         }, 2000);
       }
     } catch (error) {
