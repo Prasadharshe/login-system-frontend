@@ -21,6 +21,12 @@
           🙈
         </span>
       </div>
+      <div class="password-container">
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+        <p id="passwordValidationMessage" style="color: red; font-size: 14px;"></p>
+        <span id="toggleConfirm" class="toggle-password" onclick="togglePassword('confirmPassword', 'toggleConfirm')">🙈</span>
+      </div>
+      
       <button type="submit" class="submit">Register</button>
     </form>
     <p>Already have an account? <a class="sign-up" href="../index.html">Login</a></p>
