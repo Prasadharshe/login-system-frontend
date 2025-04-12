@@ -127,7 +127,15 @@ p {
     display: flex;
     align-items: center;        
     width: 100%;
+    /* margin-bottom: 15px; */
 }
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin: 5px 0 10px 5px;
+    display: none; /* Hidden by default */;
+  }
 
 /* Style for the password input field */
 .password-container input {

@@ -16,17 +16,16 @@
       <input type="email" id="email" placeholder="Email" required autocomplete="username" />
       <div class="password-container">
         <input type="password" id="password" placeholder="Password" required autocomplete="current-password" />
-        <p id="passwordValidationMessage" style="color: red; font-size: 14px;"></p>
+        <!-- <p id="passwordValidationMessage" style="color: red; font-size: 14px;"></p> -->
         <span id="toggleEmoji" class="toggle-password" onclick="togglePassword('password', 'toggleEmoji')">
           🙈
         </span>
       </div>
       <div class="password-container">
         <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
-        <p id="passwordValidationMessage" style="color: red; font-size: 14px;"></p>
         <span id="toggleConfirm" class="toggle-password" onclick="togglePassword('confirmPassword', 'toggleConfirm')">🙈</span>
       </div>
-      
+      <p id="passwordValidationMessage" class="error-message"></p>
       <button type="submit" class="submit">Register</button>
     </form>
     <p>Already have an account? <a class="sign-up" href="../index.html">Login</a></p>
