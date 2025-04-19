@@ -2,6 +2,40 @@ document.addEventListener("DOMContentLoaded", () => {
   // Retrieve username from localStorage
   const username = localStorage.getItem("username") || "User";
   const usernameElement = document.getElementById("username");
+  const confirmBtn = document.getElementById("confirmLogout"); 
+
+  // playfully dodge the user a couple of times before allowing logout!
+  let moveCount = 0;
+
+  confirmBtn.addEventListener("mouseover", () => {
+    if (moveCount < 5) {
+      const popup = document.querySelector(".popup-content");
+      const maxX = popup.offsetWidth - confirmBtn.offsetWidth;
+      const maxY = popup.offsetHeight - confirmBtn.offsetHeight;
+
+      const randX = Math.floor(Math.random() * maxX);
+      const randY = Math.floor(Math.random() * maxY);
+
+      confirmBtn.style.position = "absolute";
+      confirmBtn.style.left = `${randX}px`;
+      confirmBtn.style.top = `${randY}px`;
+
+      moveCount++;
+    }
+  });
+
+  confirmBtn.addEventListener("click", () => {
+    if (moveCount < 5) {
+      // Prevent logout until they really mean it 😜
+      alert("Not so fast! 😆 Try again!");
+    } else {
+      // Proceed with logout
+      localStorage.removeItem("username");
+      window.location.href = "index.html";
+    }
+  });
+  
+  
 
   if (usernameElement) {
     usernameElement.textContent = username; // Use 'username' instead of 'user.name'
@@ -73,6 +107,59 @@ function toggleMenu() {
     navUl.classList.toggle("show");
   }
 }
+
+
+// document.getElementById("sendBtn").addEventListener("click", sendMessage);
+// document.getElementById("chatInput").addEventListener("keypress", function (e) {
+//   if (e.key === "Enter") sendMessage();
+// });
+
+// function sendMessage() {
+//   const input = document.getElementById("chatInput");
+//   const message = input.value.trim();
+//   if (!message) return;
+
+//   appendMessage("user", message);
+//   input.value = "";
+
+//   // Simulate a basic bot response
+//   setTimeout(() => {
+//     appendMessage("bot", "🤖 I'm still learning! Ask me anything general.");
+//   }, 800);
+// }
+
+// function appendMessage(sender, text) {
+//   const msgDiv = document.createElement("div");
+//   msgDiv.className = `chat-message ${sender}-msg`;
+//   msgDiv.textContent = text;
+
+//   const messages = document.getElementById("chatMessages");
+//   messages.appendChild(msgDiv);
+//   messages.scrollTop = messages.scrollHeight;
+// }
+
+
+// function sendMessage() {
+//   const input = document.getElementById("userInput");
+//   const chatWindow = document.getElementById("chatWindow");
+
+//   const userMessage = input.value.trim();
+//   if (!userMessage) return;
+
+//   const userBubble = document.createElement("p");
+//   userBubble.textContent = `You: ${userMessage}`;
+//   chatWindow.appendChild(userBubble);
+
+//   // Simulated AI response
+//   const aiResponse = document.createElement("p");
+//   aiResponse.textContent = `AI: I'm still learning! You said "${userMessage}".`;
+//   setTimeout(() => {
+//     chatWindow.appendChild(aiResponse);
+//     chatWindow.scrollTop = chatWindow.scrollHeight;
+//   }, 1000);
+
+//   input.value = "";
+// }
 
 // document.addEventListener("DOMContentLoaded", () => {
 //   const themeButton = document.getElementById("themeButton");

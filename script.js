@@ -4,6 +4,9 @@ document.getElementById("loginForm").addEventListener("submit", async function (
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   const message = document.getElementById("message");
+  const spinner = document.getElementById("loading-spinner"); // <-- Spinner element
+
+  if (spinner) spinner.style.display = "flex"; // Show spinner
 
   try {
     const response = await fetch("https://login-system-backend-1.onrender.com/login", {
@@ -41,6 +44,8 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     setTimeout(() => {
       message.textContent = "";
     }, 1000);
+  } finally {
+    if (spinner) spinner.style.display = "none"; // Hide spinner
   }
 });
 
@@ -60,4 +65,3 @@ function togglePassword(inputId, iconId) {
     console.error("Element not found: Check your IDs!");
   }
 }
-
