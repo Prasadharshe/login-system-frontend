@@ -24,8 +24,8 @@
             </div>
                 <ul class="ul-element">
                     <!-- <li><a href="#"  class="">📊Statistics</a></li> -->
-                    <li><a href="#" class=""><i class="fa-solid fa-gear"></i> </a></li>
-                    <li><a href="#" class=""><i class="fa-solid fa-file-pen"></i> Notes</a></li>
+                    <li><a href="#" class=""><i class="fa-solid fa-gear"></i> Settings</a></li>
+                    <li><a href="#" id="notesToggle" class=""><i class="fa-solid fa-file-pen"></i> Notes</a></li>
                     <li><a href="https://prasadharshe.github.io/vediccounter/" target="_blank" class=""><i class="fa-solid fa-om"></i> Vedic Counter</a></li>
                 </ul>
         </div>
@@ -106,7 +106,25 @@
             </div>
         </div>
     </div>
-      
+
+    <!-- Notes Popup -->
+    <!-- <div id="notesBox" class="notes-box">
+        <textarea id="notesArea" placeholder="Write your notes..."></textarea>
+        <div class="notes-controls">
+        <button onclick="saveNote()">💾 Save</button>
+        <button onclick="clearNote()">🧹 Clear</button>
+        </div>
+    </div> -->
+
+    <!-- Notes Sidebar -->
+    <div id="notesSidebar" class="notes-sidebar">
+        <h3>📝 Notes</h3>
+        <textarea id="notesArea" placeholder="Write your notes..."></textarea>
+        <div class="notes-controls">
+        <button onclick="saveNote()">💾 Save</button>
+        <button onclick="clearNote()">🧹 Clear</button>
+        </div>
+    </div>
 
     <script src="chatbot.js"></script>
     <script defer src="dashboard.js"></script>

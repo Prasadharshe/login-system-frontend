@@ -2,38 +2,38 @@ document.addEventListener("DOMContentLoaded", () => {
   // Retrieve username from localStorage
   const username = localStorage.getItem("username") || "User";
   const usernameElement = document.getElementById("username");
-  const confirmBtn = document.getElementById("confirmLogout"); 
+  // const confirmBtn = document.getElementById("confirmLogout"); 
 
   // playfully dodge the user a couple of times before allowing logout!
-  let moveCount = 0;
+  // let moveCount = 0;
 
-  confirmBtn.addEventListener("mouseover", () => {
-    if (moveCount < 5) {
-      const popup = document.querySelector(".popup-content");
-      const maxX = popup.offsetWidth - confirmBtn.offsetWidth;
-      const maxY = popup.offsetHeight - confirmBtn.offsetHeight;
+  // confirmBtn.addEventListener("mouseover", () => {
+  //   if (moveCount < 5) {
+  //     const popup = document.querySelector(".popup-content");
+  //     const maxX = popup.offsetWidth - confirmBtn.offsetWidth;
+  //     const maxY = popup.offsetHeight - confirmBtn.offsetHeight;
 
-      const randX = Math.floor(Math.random() * maxX);
-      const randY = Math.floor(Math.random() * maxY);
+  //     const randX = Math.floor(Math.random() * maxX);
+  //     const randY = Math.floor(Math.random() * maxY);
 
-      confirmBtn.style.position = "absolute";
-      confirmBtn.style.left = `${randX}px`;
-      confirmBtn.style.top = `${randY}px`;
+  //     confirmBtn.style.position = "absolute";
+  //     confirmBtn.style.left = `${randX}px`;
+  //     confirmBtn.style.top = `${randY}px`;
 
-      moveCount++;
-    }
-  });
+  //     moveCount++;
+  //   }
+  // });
 
-  confirmBtn.addEventListener("click", () => {
-    if (moveCount < 5) {
-      // Prevent logout until they really mean it 😜
-      alert("Not so fast! 😆 Try again!");
-    } else {
-      // Proceed with logout
-      localStorage.removeItem("username");
-      window.location.href = "index.html";
-    }
-  });
+  // confirmBtn.addEventListener("click", () => {
+  //   if (moveCount < 5) {
+  //     // Prevent logout until they really mean it 😜
+  //     alert("Not so fast! 😆 Try again!");
+  //   } else {
+  //     // Proceed with logout
+  //     localStorage.removeItem("username");
+  //     window.location.href = "index.html";
+  //   }
+  // });
   
   
 
@@ -107,6 +107,37 @@ function toggleMenu() {
     navUl.classList.toggle("show");
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const notesToggle = document.getElementById("notesToggle");
+  const notesSidebar = document.getElementById("notesSidebar");
+  const notesArea = document.getElementById("notesArea");
+
+  // Load saved note
+  const savedNote = localStorage.getItem("myNote");
+  if (savedNote) {
+    notesArea.value = savedNote;
+  }
+
+  // Toggle sidebar
+  notesToggle.addEventListener("click", (e) => {
+    e.preventDefault();
+    notesSidebar.classList.toggle("show");
+  });
+});
+
+function saveNote() {
+  const text = document.getElementById("notesArea").value;
+  localStorage.setItem("myNote", text);
+  alert("Note saved!");
+}
+
+function clearNote() {
+  document.getElementById("notesArea").value = "";
+  localStorage.removeItem("myNote");
+  alert("Note cleared!");
+}
+
 
 
 // document.getElementById("sendBtn").addEventListener("click", sendMessage);
