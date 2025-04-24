@@ -12,7 +12,7 @@ body {
     background: radial-gradient(ellipse at bottom, #1b2735 10%, #090a0f 100%);
     /* color: white; */
     font-family: sans-serif;
-    /* overflow: hidden; */
+    overflow: hidden;
     display: flex;
     justify-content: space-between;
     align-items: center;
