@@ -2,39 +2,43 @@ document.addEventListener("DOMContentLoaded", () => {
   // Retrieve username from localStorage
   const username = localStorage.getItem("username") || "User";
   const usernameElement = document.getElementById("username");
-  // const confirmBtn = document.getElementById("confirmLogout"); 
+  const notesSidebar = document.getElementById("notesSidebar");
+  const notesToggle = document.getElementById("notesToggle");
+  const closeNotesBtn = document.getElementById("closeNotesBtn");
+  const hamburger = document.querySelector(".hamburger");
+  const navUl = document.querySelector(".nav-left");
+  const logoutButton = document.querySelector(".logout-button");
+  const confirmLogout = document.getElementById("confirmLogout");
+  const cancelLogout = document.getElementById("cancelLogout");
+  // const notesArea = document.getElementById("notesArea");
+  const overlay = document.getElementById("overlay");
 
-  // playfully dodge the user a couple of times before allowing logout!
-  // let moveCount = 0;
+   // Open Notes and show overlay
+   notesToggle.addEventListener("click", (e) => {
+    e.preventDefault();
+    notesSidebar.classList.add("show");
+    overlay.classList.add("show");
+  });
 
-  // confirmBtn.addEventListener("mouseover", () => {
-  //   if (moveCount < 5) {
-  //     const popup = document.querySelector(".popup-content");
-  //     const maxX = popup.offsetWidth - confirmBtn.offsetWidth;
-  //     const maxY = popup.offsetHeight - confirmBtn.offsetHeight;
+  // Close Notes and hide overlay
+  closeNotesBtn.addEventListener("click", () => {
+    notesSidebar.classList.remove("show");
+    overlay.classList.remove("show");
+  });
 
-  //     const randX = Math.floor(Math.random() * maxX);
-  //     const randY = Math.floor(Math.random() * maxY);
-
-  //     confirmBtn.style.position = "absolute";
-  //     confirmBtn.style.left = `${randX}px`;
-  //     confirmBtn.style.top = `${randY}px`;
-
-  //     moveCount++;
-  //   }
+  // Also close Notes if user clicks the overlay
+  // overlay.addEventListener("click", () => {
+  //   notesSidebar.classList.remove("show");
+  //   overlay.classList.remove("show");
   // });
 
-  // confirmBtn.addEventListener("click", () => {
-  //   if (moveCount < 5) {
-  //     // Prevent logout until they really mean it 😜
-  //     alert("Not so fast! 😆 Try again!");
-  //   } else {
-  //     // Proceed with logout
-  //     localStorage.removeItem("username");
-  //     window.location.href = "index.html";
-  //   }
-  // });
+    notesToggle.addEventListener("click", () => {
+      notesSidebar.classList.add("show");
+    });
   
+    closeNotesBtn.addEventListener("click", () => {
+      notesSidebar.classList.remove("show");
+    });
   
 
   if (usernameElement) {
@@ -44,16 +48,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Handle Hamburger Menu Click
-  const hamburger = document.querySelector(".hamburger");
-  const navUl = document.querySelector(".nav-left");
-
   if (hamburger && navUl) {
     hamburger.addEventListener("click", () => {
       hamburger.classList.toggle("cross");
       navUl.classList.toggle("show");
     });
 
-    // Close menu if window resizes above 769px
+  // Close menu if window resizes above 769px
     window.addEventListener("resize", () => {
       if (window.innerWidth > 769) {
         navUl.classList.remove("show");
@@ -65,7 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Handle Logout Button Click (With Confirmation)
-  const logoutButton = document.querySelector(".logout-button");
   if (logoutButton) {
     logoutButton.addEventListener("click", () => {
       showLogoutPopup();
@@ -82,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Handle Yes (Logout)
-  const confirmLogout = document.getElementById("confirmLogout");
   if (confirmLogout) {
     confirmLogout.addEventListener("click", () => {
       localStorage.removeItem("token");
@@ -92,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Handle No (Cancel)
-  const cancelLogout = document.getElementById("cancelLogout");
   if (cancelLogout) {
     cancelLogout.addEventListener("click", () => {
       document.getElementById("logoutPopup").style.display = "none"; // Hide popup
@@ -107,12 +105,6 @@ function toggleMenu() {
     navUl.classList.toggle("show");
   }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  const notesToggle = document.getElementById("notesToggle");
-  const notesSidebar = document.getElementById("notesSidebar");
-  const notesArea = document.getElementById("notesArea");
-
   // Load saved note
   const savedNote = localStorage.getItem("myNote");
   if (savedNote) {
@@ -124,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     notesSidebar.classList.toggle("show");
   });
-});
 
 function saveNote() {
   const text = document.getElementById("notesArea").value;
@@ -137,114 +128,3 @@ function clearNote() {
   localStorage.removeItem("myNote");
   alert("Note cleared!");
 }
-
-
-
-// document.getElementById("sendBtn").addEventListener("click", sendMessage);
-// document.getElementById("chatInput").addEventListener("keypress", function (e) {
-//   if (e.key === "Enter") sendMessage();
-// });
-
-// function sendMessage() {
-//   const input = document.getElementById("chatInput");
-//   const message = input.value.trim();
-//   if (!message) return;
-
-//   appendMessage("user", message);
-//   input.value = "";
-
-//   // Simulate a basic bot response
-//   setTimeout(() => {
-//     appendMessage("bot", "🤖 I'm still learning! Ask me anything general.");
-//   }, 800);
-// }
-
-// function appendMessage(sender, text) {
-//   const msgDiv = document.createElement("div");
-//   msgDiv.className = `chat-message ${sender}-msg`;
-//   msgDiv.textContent = text;
-
-//   const messages = document.getElementById("chatMessages");
-//   messages.appendChild(msgDiv);
-//   messages.scrollTop = messages.scrollHeight;
-// }
-
-
-// function sendMessage() {
-//   const input = document.getElementById("userInput");
-//   const chatWindow = document.getElementById("chatWindow");
-
-//   const userMessage = input.value.trim();
-//   if (!userMessage) return;
-
-//   const userBubble = document.createElement("p");
-//   userBubble.textContent = `You: ${userMessage}`;
-//   chatWindow.appendChild(userBubble);
-
-//   // Simulated AI response
-//   const aiResponse = document.createElement("p");
-//   aiResponse.textContent = `AI: I'm still learning! You said "${userMessage}".`;
-//   setTimeout(() => {
-//     chatWindow.appendChild(aiResponse);
-//     chatWindow.scrollTop = chatWindow.scrollHeight;
-//   }, 1000);
-
-//   input.value = "";
-// }
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   const themeButton = document.getElementById("themeButton");
-//   const themePopup = document.getElementById("themePopup");
-//   const closeThemePopup = document.getElementById("closeThemePopup");
-//   const bgColorPicker = document.getElementById("bgColorPicker");
-//   const textColorPicker = document.getElementById("textColorPicker");
-//   const btnColorPicker = document.getElementById("btnColorPicker");
-
-//   // Load saved colors
-//   const savedBgColor = localStorage.getItem("bgColor");
-//   const savedTextColor = localStorage.getItem("textColor");
-//   const savedBtnColor = localStorage.getItem("btnColor");
-
-//   if (savedBgColor) document.body.style.backgroundColor = savedBgColor;
-//   if (savedTextColor) document.body.style.color = savedTextColor;
-//   if (savedBtnColor) {
-//       document.querySelectorAll("button").forEach(btn => {
-//           btn.style.backgroundColor = savedBtnColor;
-//       });
-//   }
-
-//   // Show/Hide Theme Customizer
-//   themeButton.addEventListener("click", () => {
-//       themePopup.style.display = "block";
-//   });
-
-//   closeThemePopup.addEventListener("click", () => {
-//       themePopup.style.display = "none";
-//   });
-
-//   // Update colors when changed
-//   bgColorPicker.addEventListener("input", () => {
-//       document.body.style.backgroundColor = bgColorPicker.value;
-//       localStorage.setItem("bgColor", bgColorPicker.value);
-//   });
-
-//   textColorPicker.addEventListener("input", () => {
-//       document.body.style.color = textColorPicker.value;
-//       localStorage.setItem("textColor", textColorPicker.value);
-//   });
-
-//   btnColorPicker.addEventListener("input", () => {
-//       document.querySelectorAll("button").forEach(btn => {
-//           btn.style.backgroundColor = btnColorPicker.value;
-//       });
-//       localStorage.setItem("btnColor", btnColorPicker.value);
-//   });
-// });
-
-// // Reset theme
-// function resetTheme() {
-//   localStorage.removeItem("bgColor");
-//   localStorage.removeItem("textColor");
-//   localStorage.removeItem("btnColor");
-//   location.reload(); // Refresh page to reset
-// }

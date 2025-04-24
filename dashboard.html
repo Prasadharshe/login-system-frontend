@@ -118,6 +118,7 @@
 
     <!-- Notes Sidebar -->
     <div id="notesSidebar" class="notes-sidebar">
+        <button class="close-notes" id="closeNotesBtn">✖</button>
         <h3>📝 Notes</h3>
         <textarea id="notesArea" placeholder="Write your notes..."></textarea>
         <div class="notes-controls">
@@ -125,7 +126,7 @@
         <button onclick="clearNote()">🧹 Clear</button>
         </div>
     </div>
-
+    <div id="overlay"></div>
     <script src="chatbot.js"></script>
     <script defer src="dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
