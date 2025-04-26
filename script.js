@@ -4,9 +4,22 @@ document.getElementById("loginForm").addEventListener("submit", async function (
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   const message = document.getElementById("message");
-  const spinner = document.getElementById("loading-spinner"); // <-- Spinner element
+  const loadingBar = document.getElementById("loading-bar");
 
-  if (spinner) spinner.style.display = "flex"; // Show spinner
+  const loginTime = Date.now();
+  localStorage.setItem("lastLogin", loginTime);
+  localStorage.setItem("loginDevice", navigator.userAgent);
+
+  if (loadingBar) {
+    loadingBar.style.transition = "width 0.4s ease";
+    loadingBar.style.width = "0%";
+    loadingBar.style.opacity = "1"; // Reset opacity
+    loadingBar.style.display = "block";
+
+    setTimeout(() => {
+      loadingBar.style.width = "50%";
+    }, 100);
+  }
 
   try {
     const response = await fetch("https://login-system-backend-1.onrender.com/login", {
@@ -15,37 +28,55 @@ document.getElementById("loginForm").addEventListener("submit", async function (
       body: JSON.stringify({ email, password }),
     });
 
-    const data = await response.json(); // Ensure response is parsed as JSON
+    const data = await response.json();
 
     message.style.color = response.ok ? "green" : "red";
-    message.textContent = data.message; // Display backend response message
+    message.textContent = data.message;
 
     if (!response.ok) {
-      // Hide the message after 4 seconds if login fails
+      if (loadingBar) {
+        loadingBar.style.width = "0%";
+        loadingBar.style.opacity = "1";
+      }
       setTimeout(() => {
         message.textContent = "";
       }, 4000);
-      return; // Stop execution for failed login
+      return;
     }
 
-    // If login is successful, store username & token
-    localStorage.setItem("username", data.name); // Store the logged-in user's name
-    localStorage.setItem("token", "dummy_token"); // Token simulation
+    localStorage.setItem("username", data.name);
+    localStorage.setItem("token", "dummy_token");
+    localStorage.setItem("lastLogin", Date.now());
+    localStorage.setItem("loginDevice", navigator.userAgent);
+    localStorage.setItem("sessionStart", Date.now());
+
+    if (loadingBar) {
+      loadingBar.style.width = "100%"; // Animate to full
+      setTimeout(() => {
+        loadingBar.style.transition = "opacity 0.5s ease"; // Switch to fade-out
+        loadingBar.style.opacity = "0"; // Fade out
+        setTimeout(() => {
+          loadingBar.style.display = "none"; // Hide completely after fade
+          loadingBar.style.transition = "width 0.4s ease"; // Reset for next time
+        }, 500);
+      }, 500); // Wait a moment after reaching 100%
+    }
 
     setTimeout(() => {
-      window.location.href = "dashboard.html"; // Redirect after successful login
+      window.location.href = "dashboard.html";
     }, 2000);
   } catch (error) {
     console.error("Error:", error);
     message.style.color = "red";
     message.textContent = "Something went wrong!";
-
-    // Hide the error message after 1 second
     setTimeout(() => {
       message.textContent = "";
     }, 1000);
-  } finally {
-    if (spinner) spinner.style.display = "none"; // Hide spinner
+
+    if (loadingBar) {
+      loadingBar.style.width = "0%";
+      loadingBar.style.opacity = "1";
+    }
   }
 });
 
@@ -56,10 +87,10 @@ function togglePassword(inputId, iconId) {
   if (passwordField && icon) {
     if (passwordField.type === "password") {
       passwordField.type = "text";
-      icon.textContent = "🐵"; // Open eyes
+      icon.textContent = "🐵";
     } else {
       passwordField.type = "password";
-      icon.textContent = "🙈"; // Closed eyes
+      icon.textContent = "🙈";
     }
   } else {
     console.error("Element not found: Check your IDs!");

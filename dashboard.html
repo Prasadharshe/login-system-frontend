@@ -23,20 +23,14 @@
               <div></div>
             </div>
                 <ul class="ul-element">
-                    <!-- <li><a href="#"  class="">📊Statistics</a></li> -->
-                    <li><a href="#" class=""><i class="fa-solid fa-gear"></i> Settings</a></li>
+                    <li><a href="#" class="" id="settingsToggle"><i class="fa-solid fa-gear"></i> Settings</a></li>
                     <li><a href="#" id="notesToggle" class=""><i class="fa-solid fa-file-pen"></i> Notes</a></li>
                     <li><a href="https://prasadharshe.github.io/vediccounter/" target="_blank" class=""><i class="fa-solid fa-om"></i> Vedic Counter</a></li>
                 </ul>
         </div>
-        <!-- <button class="hamburger" onclick="toggleMenu()">☰</button>
-        <a href="#">📊Statistics</a>
-        <a href="#">📝Notes</a>
-        <a href="#">⚙️Settings</a> -->
     </div>
 
     <!-- <button id="themeButton" >🎨</button> -->
-
         <!-- <div class="theme-customizer" id="themePopup">
             <h3>Customize Theme</h3>
             <label>Background Color: <input type="color" id="bgColorPicker"></label>
@@ -65,6 +59,27 @@
         </div>
     </div>
 </nav>
+
+    <div id="settingsSidebar" class="settings-sidebar">
+        <button class="close-notes" id="closeSettingsBtn">✖</button>
+        <h3><i class="fa-solid fa-gear"></i> Settings</h3>
+        <div class="settings-content">
+        <p>Customize your experience:</p>    
+        <hr>
+        <button id="exportTxtBtn" class="chat-btn">📄 Export as TXT</button>
+        <button id="exportJsonBtn" class="chat-btn">🧾 Export as JSON</button>
+        <hr>
+        <!-- <button title="Logout" id="logoutButton" class="logout-button popup"><i class="fa-solid fa-power-off"></i></button> -->
+
+        <div id="sessionInfo" class="session-info">
+            <p>⏱️ Session Duration: <span id="sessionDuration">00:00</span></p>
+            <p>🕓 Last Login: <span id="lastLogin"></span></p>
+            <p>💻 Device: <span id="deviceInfo"></span></p>
+        </div>
+        <!-- You can add more settings later -->
+        </div>
+    </div>
+  
 
     <!-- <div class="chat-container" id="chatContainer">
         <div class="chat-messages" id="chatMessages"></div>

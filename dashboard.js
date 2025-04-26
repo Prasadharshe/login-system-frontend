@@ -12,6 +12,71 @@ document.addEventListener("DOMContentLoaded", () => {
   const cancelLogout = document.getElementById("cancelLogout");
   // const notesArea = document.getElementById("notesArea");
   const overlay = document.getElementById("overlay");
+  const settingsSidebar = document.getElementById("settingsSidebar");
+  const settingsToggle = document.getElementById("settingsToggle");
+  const closeSettingsBtn = document.getElementById("closeSettingsBtn");
+  document.getElementById("exportTxtBtn").addEventListener("click", exportNotesAsTxt);
+  document.getElementById("exportJsonBtn").addEventListener("click", exportNotesAsJson);
+  const lastLogin = localStorage.getItem("lastLogin");
+  const loginDevice = localStorage.getItem("loginDevice");
+
+  if (lastLogin) {
+    document.getElementById("lastLogin").textContent = new Date(parseInt(lastLogin)).toLocaleString();
+  }
+  if (loginDevice) {
+    document.getElementById("deviceInfo").textContent = loginDevice;
+  }
+
+    // Check if session start is already saved, if not, set it
+  if (!localStorage.getItem("sessionStart")) {
+    localStorage.setItem("sessionStart", Date.now());
+  }
+
+  // Session timer
+  let startTime = parseInt(localStorage.getItem("sessionStart"), 10);
+
+  setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    const minutes = Math.floor(elapsed / 60000);
+    const seconds = Math.floor((elapsed % 60000) / 1000);
+    document.getElementById("sessionDuration").textContent =
+      `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+  }, 1000);
+
+  function exportNotesAsTxt() {
+    const notes = localStorage.getItem("myNote") || "";
+    const blob = new Blob([notes], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    downloadFile(url, "Notes.txt");
+  }
+  
+  function exportNotesAsJson() {
+    const notes = { note: localStorage.getItem("myNote") || "" };
+    const blob = new Blob([JSON.stringify(notes, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    downloadFile(url, "Notes.json");
+  }
+  
+  function downloadFile(url, filename) {
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }  
+
+  if (settingsToggle && settingsSidebar && closeSettingsBtn) {
+    settingsToggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      settingsSidebar.classList.add("show");
+      overlay.classList.add("show");
+    });
+  
+    closeSettingsBtn.addEventListener("click", () => {
+      settingsSidebar.classList.remove("show");
+      overlay.classList.remove("show");
+    });
+  }
 
    // Open Notes and show overlay
    notesToggle.addEventListener("click", (e) => {
@@ -36,9 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
       notesSidebar.classList.add("show");
     });
   
-    closeNotesBtn.addEventListener("click", () => {
-      notesSidebar.classList.remove("show");
-    });
+    // closeNotesBtn.addEventListener("click", () => {
+    //   notesSidebar.classList.remove("show");
+    // });
   
 
   if (usernameElement) {
@@ -86,7 +151,9 @@ document.addEventListener("DOMContentLoaded", () => {
     confirmLogout.addEventListener("click", () => {
       localStorage.removeItem("token");
       localStorage.removeItem("username"); // Clear username on logout
-      window.location.href = "index.html"; // Redirect to login page
+      localStorage.removeItem("lastLogin");
+      localStorage.removeItem("loginDevice");
+      localStorage.removeItem("sessionStart");
     });
   }
 
