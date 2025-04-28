@@ -149,11 +149,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Handle Yes (Logout)
   if (confirmLogout) {
     confirmLogout.addEventListener("click", () => {
-      localStorage.removeItem("token");
-      localStorage.removeItem("username"); // Clear username on logout
-      localStorage.removeItem("lastLogin");
-      localStorage.removeItem("loginDevice");
-      localStorage.removeItem("sessionStart");
+      localStorage.clear(); // Clear everything (token, username, etc.)
+  
+      document.getElementById("logoutPopup").style.display = "none"; // Hide the popup
+  
+      window.location.href = "index.html"; // Redirect to login page
     });
   }
 

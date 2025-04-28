@@ -1,16 +1,9 @@
 *{
-    /* font-family: "Playpen Sans", cursive; */
-    /* font-family: "Sour Gummy", sans-serif; */
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
 }
 body {
-    /* font-family: 'Poppins', sans-serif; */
-    /* font-family: "Playpen Sans", cursive; */
-    /* background: linear-gradient(120deg, #868686, #181818); */
-    /* background: #66D2CE; */
     background: #1d1d1d;
     background: radial-gradient(ellipse at bottom, #1b2735 10%, #090a0f 100%);
-    /* color: white; */
     font-family: sans-serif;
     overflow: hidden;
     display: flex;
@@ -20,7 +13,6 @@ body {
     margin: 0;
     padding: 0;
     flex-direction: column;
-    /* transition: background-color 0.3s ease;  */
 }
 
 body::before {
@@ -31,7 +23,6 @@ body::before {
     background: transparent url('./images/stardust.png') repeat;
     opacity: 0.8;
     z-index: -1;
-
     animation: moveStardust 500s linear infinite;
 }
 
@@ -51,7 +42,6 @@ input {
     width: 90%;
     padding: 12px;
     margin: 10px 0;
-    /* background: rgba(255, 255, 255, 0.434); */
     border: 1px solid #ccccccd5;
     border-radius: 5px;
     font-size: 14px;
@@ -76,26 +66,25 @@ p {
     color: #013bf9;
     font-weight: bold;
     transition: 0.3s;
-    /* margin-right: 30px; */
+    
 }
 
 .sign-up:hover {
-    color: #466ff5;
-    text-shadow: 1px 1px 5px #6d8cfc;
+    color: #000;
+    /* text-shadow: 1px 1px 5px #6d8cfc; */
 }
 
 /* Centered Card */
 .container {
     background: rgba(255, 255, 255, 0.781);
-    /* background: linear-gradient(120deg, #919090, #6d8cfc); */
     padding: 30px;
-    border: 2px solid rgb(255, 255, 255);
+    border: 3px solid rgb(255, 255, 255);
     border-radius: 10px;
     box-shadow: 0px 0px 15px rgb(255, 255, 255);
     text-align: center;
     width: 320px;
     margin-top: 80px;
-    /* animation: fadeIn 0.5s ease-in-out; */
+    margin-bottom: 170px;
     animation: flicker 2s infinite alternate;
 }
 
@@ -109,7 +98,6 @@ p {
     text-align: center;
     color: white;
     font-size: 2.5rem;
-    /* margin-bottom: 30px; */
     margin-top: 30px;
     font-weight: 700;
     text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.61);
@@ -121,12 +109,10 @@ p {
     color: white;
     font-size: 0.7rem;
     padding: 10px 0;
-    position: relative;
-    bottom: 0;
-    /* margin-top: 20px; */
+    position: fixed;
+    top: 670px;
+    /* bottom: -50px; */
     width: 100%;
-    
-    /* background: transparent; or use a color like rgba(255,255,255,0.1) */
   }
 
   .footer-name{
@@ -143,7 +129,6 @@ p {
     width: 50%;
     padding: 12px;
     margin-top : 10px;
-    /* background: linear-gradient(90deg, #6e8efb, #a777e3); */
     background: #161616;
     box-shadow: 1px 1px 10px #161616;
     border: none;
@@ -156,7 +141,6 @@ p {
 
 .submit:hover {
     box-shadow: 0 0 10px #030303, 0 0 20px #030303;
-    /* background: linear-gradient(90deg, #5a7de9, #955bc2); */
 }
 
 /* Style for password input container */
@@ -165,7 +149,6 @@ p {
     display: flex;
     align-items: center;        
     width: 100%;
-    /* margin-bottom: 15px; */
 }
 
 .error-message {
@@ -189,21 +172,23 @@ p {
     color: #6e8efb;
 }
 
+/* loading bar for login page  */
 #loading-bar {
   height: 3px;
   width: 0;
-  background-color: #564caf; 
+  background: linear-gradient(90deg, #564caf, #2575fc); /* Beautiful gradient */
+  box-shadow: 0 0 10px #2575fc, 0 0 20px #564caf; /* Glowing effect */
   position: fixed;
+  border-radius: 2px;
   top: 0;
   left: 0;
-  transition: width 0.4s ease;
+  transition: width 0.4s ease, opacity 0.5s ease;
   z-index: 1000;
   opacity: 1;
 }
 
 
-/* Spinner Overlay */
-/* .spinner-overlay {
+ .spinner-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -214,23 +199,22 @@ p {
   justify-content: center;
   align-items: center;
   z-index: 1;
-} */
+} 
 
-/* Spinner Element */
-/* .spinner {
+.spinner {
   border: 6px solid #f3f3f3;
   border-top: 6px solid #564caf; 
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  animation: spin 0.8s linear infinite;
-} */
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+} 
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
 
 /* Message Display */
 #message, #registerMessage {
@@ -244,7 +228,6 @@ p {
     opacity: 0; /* Fade out */
   }
 
-
 /* Dashboard Styles - Navbar Styles */
 .navbar {
     position: fixed; /* Fix the navbar at the top */
@@ -255,16 +238,11 @@ p {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    /* background: linear-gradient(50deg,#393E46, #1e2128); */
-    /* background: #2DAA9E; */
-    /* background: #0a0b11; */
     backdrop-filter: blur(2px);
     background-color: rgba(33, 33, 33, 0.24);
-    /* box-shadow: 0px 0px 8px #ffffff; */
     padding: 15px 10px;
     border-radius: 0; 
     z-index: 1; /* Ensure it's above other content */
-    /* animation: flicker 2s infinite alternate; */
 }
 .nav-center {
     flex: 1;
@@ -312,17 +290,11 @@ p {
 }
 
 .navbar a {
-    /* color: red; */
     text-decoration: none;
     transition: color 0.2s ease;
     font-size: 16px;
-    /* font-family: cursive; */
     padding: 10px;
 }
-
-/* .navbar a:hover {
-    color: #f47bb3
-} */
 
 /* Push content below navbar */
 .dashboard-container {
@@ -331,11 +303,9 @@ p {
     margin-top: 80px; /* Adjust spacing to avoid overlap */
 }
 
-
 /* Chat bot styles  */
   .chat-wrapper {
     position: fixed;
-    /* overflow: hidden; */
     bottom: 20px;
     left: 50%;
     color: white;
@@ -429,7 +399,6 @@ p {
   
   .chat-input-bar {
       background-color: rgba(52, 51, 51, 0.29);
-      /* backdrop-filter: blur(10px); */
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.479);
       color: white;
       border-radius: 24px;
@@ -555,7 +524,6 @@ p {
 /* Popup Styling for LOGOUT*/
 .popup {
     display: none;
-    /* justify-content: center; */
     position: fixed;
     justify-content: center;
     align-items: center;
@@ -571,6 +539,8 @@ p {
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.774);
     z-index: 9999;
     text-align: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 .popup-content p {
@@ -586,7 +556,6 @@ p {
 .popup-content-clear-chat p{
     font-size: 18px;
 }
-
 
 .confirm-btn,
 .cancel-btn {
@@ -631,7 +600,6 @@ ul{
   margin: 10px 0;
   color: #ccc;
 }
-
 
 .settings-sidebar {
   position: fixed;
@@ -734,60 +702,7 @@ ul{
   background: rgba(255, 255, 255, 0.2);
 }
 
-  
-
-/* pop-up style for clearing the chat under dashboard  */
-/* .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.65);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
-  
-  .popup-box {
-    background: #1e1e1e;
-    color: white;
-    padding: 20px 30px;
-    border-radius: 10px;
-    text-align: center;
-    max-width: 300px;
-    width: 90%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  }
-  
-  .popup-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-  }
-  
-  .confirm-btn, .cancel-btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .confirm-btn {
-    background-color: #d9534f;
-    color: white;
-  }
-  
-  .cancel-btn {
-    background-color: #5a5a5a;
-    color: white;
-  }
-   */
-
 /* hamburger */
-
 .hamburger {
     display: none;
     cursor: pointer;
@@ -817,61 +732,6 @@ ul{
     transform: rotate(-45deg) translateX(12px);
   }
 
-/* .cust{
-    background: #007bff;
-    color: white;
-    padding: 10px 15px;
-    margin: 0 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-} */
-
-/* .theme-customizer {
-    position: fixed;
-    top: 34%;
-    right: 0%;
-    transform: translate(-50%, -50%);
-    background: rgba(132, 132, 132, 0.493);
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    text-align: left;
-    display: none; /* Initially hidden */
-    /* z-index: 1000; */
-
-
-/* .theme-customizer label {
-    display: block;
-    margin: 8px 0;
-}
-
-.theme-customizer input {
-    margin-left: 10px;
-} */
-
-/* #themeButton {
-    position: fixed;
-    top: 14px;
-    right: 100px;
-    background: #007bff;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#themeButton:hover {
-    background: #0056b3;
-}
-
-#closeThemePopup {
-    margin-top: 10px;
-    background: red;
-    color: rgb(255, 255, 255);
-} */
-
 /* Smooth Fade In */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-20px); }
@@ -879,11 +739,12 @@ ul{
 }
 
 /* Optional: only show on small screens */
-  @media (min-width: 769px) {
+@media (min-width: 769px) {
     #overlay {
       display: none !important; /* hide overlay on desktop */
     }
   }
+
 /*  Responsive Design - Adjustments for Tablets */
 @media (max-width: 768px) {
 
@@ -894,13 +755,6 @@ ul{
   .container {
     width: 250px;
     margin-top: 100px;
-  }
-
-  .footer {
-    padding: 10px 0;
-    position: relative;
-    bottom: 70px;
-    width: 100%;
   }
 
   .footer p, .footer-name{
@@ -963,10 +817,6 @@ ul{
         align-items: left;
     }
       
-      /* .nav-left ul li {
-        margin-bottom: 10px;
-      } */
-      
   .nav-left ul li:last-child {
         margin-bottom: 0;
     }
@@ -974,14 +824,9 @@ ul{
   .nav-left ul a {
         text-decoration: none;
         color: white;
-        /* font-size: 1.1em; */
         transition: 0.3s;
     }
       
-      /* .nav-left ul a:hover {
-        color: #f0a500;
-      } */
-
   .nav-left a {
         display: none;
   }
@@ -990,7 +835,6 @@ ul{
         display: block;
         text-align: left;
         padding: 10px;
-        /* background: rgba(10, 73, 140, 0.9); */
         width: 140px;
   }
 
@@ -999,7 +843,7 @@ ul{
   }
 
   .popup {
-    top: 600px;
+    top: 500px;
     left: 200px;
 }
 }
@@ -1012,20 +856,12 @@ ul{
         padding: 10px;
     }
 
-    /* .hamburger-box{
-        font-size: 0.9rem;
-    } */
-
     .navbar {
         flex-direction: row;
         text-align: left;
-        /* font-size: 0.7rem; */
     }
     
     .ul-element{
-        /* list-style: none;
-        padding: 0;
-        margin: 0; */
         background: black;
         display: none;
         position: absolute;
@@ -1042,7 +878,6 @@ ul{
     }
 
     .logout-button {
-        /* margin: 10px 10px; */
         text-align: right;
     }
 }

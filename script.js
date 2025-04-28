@@ -4,20 +4,18 @@ document.getElementById("loginForm").addEventListener("submit", async function (
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   const message = document.getElementById("message");
-  const loadingBar = document.getElementById("loading-bar");
+  const spinner = document.getElementById("loading-spinner"); // Spinner element
+  const loadingBar = document.getElementById("loading-bar"); // Loading bar element
 
-  const loginTime = Date.now();
-  localStorage.setItem("lastLogin", loginTime);
-  localStorage.setItem("loginDevice", navigator.userAgent);
-
+  if (spinner) spinner.style.display = "flex"; // Show spinner
   if (loadingBar) {
     loadingBar.style.transition = "width 0.4s ease";
     loadingBar.style.width = "0%";
-    loadingBar.style.opacity = "1"; // Reset opacity
+    loadingBar.style.opacity = "1"; 
     loadingBar.style.display = "block";
 
     setTimeout(() => {
-      loadingBar.style.width = "50%";
+      loadingBar.style.width = "50%"; // Animate halfway while waiting
     }, 100);
   }
 
@@ -28,47 +26,46 @@ document.getElementById("loginForm").addEventListener("submit", async function (
       body: JSON.stringify({ email, password }),
     });
 
-    const data = await response.json();
+    const data = await response.json(); 
 
     message.style.color = response.ok ? "green" : "red";
-    message.textContent = data.message;
+    message.textContent = data.message; 
 
     if (!response.ok) {
       if (loadingBar) {
-        loadingBar.style.width = "0%";
-        loadingBar.style.opacity = "1";
+        loadingBar.style.width = "0%"; 
       }
       setTimeout(() => {
         message.textContent = "";
       }, 4000);
-      return;
+      return; 
     }
 
+    // If login success
     localStorage.setItem("username", data.name);
     localStorage.setItem("token", "dummy_token");
-    localStorage.setItem("lastLogin", Date.now());
-    localStorage.setItem("loginDevice", navigator.userAgent);
-    localStorage.setItem("sessionStart", Date.now());
 
     if (loadingBar) {
-      loadingBar.style.width = "100%"; // Animate to full
+      loadingBar.style.width = "100%"; // Fill bar
       setTimeout(() => {
-        loadingBar.style.transition = "opacity 0.5s ease"; // Switch to fade-out
+        loadingBar.style.transition = "opacity 0.5s ease";
         loadingBar.style.opacity = "0"; // Fade out
         setTimeout(() => {
-          loadingBar.style.display = "none"; // Hide completely after fade
-          loadingBar.style.transition = "width 0.4s ease"; // Reset for next time
+          loadingBar.style.display = "none";
+          loadingBar.style.transition = "width 0.4s ease"; // Reset transition
         }, 500);
-      }, 500); // Wait a moment after reaching 100%
+      }, 500);
     }
 
     setTimeout(() => {
       window.location.href = "dashboard.html";
     }, 2000);
+
   } catch (error) {
     console.error("Error:", error);
     message.style.color = "red";
     message.textContent = "Something went wrong!";
+
     setTimeout(() => {
       message.textContent = "";
     }, 1000);
@@ -77,6 +74,8 @@ document.getElementById("loginForm").addEventListener("submit", async function (
       loadingBar.style.width = "0%";
       loadingBar.style.opacity = "1";
     }
+  } finally {
+    if (spinner) spinner.style.display = "none"; // Hide spinner finally
   }
 });
 
@@ -87,10 +86,10 @@ function togglePassword(inputId, iconId) {
   if (passwordField && icon) {
     if (passwordField.type === "password") {
       passwordField.type = "text";
-      icon.textContent = "🐵";
+      icon.textContent = "🐵"; 
     } else {
       passwordField.type = "password";
-      icon.textContent = "🙈";
+      icon.textContent = "🙈"; 
     }
   } else {
     console.error("Element not found: Check your IDs!");
