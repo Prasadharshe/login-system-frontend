@@ -104,16 +104,32 @@ p {
     animation: flicker 2s infinite alternate;
   } 
 
-  .footer {
+  /* .footer {
     text-align: center;
     color: white;
     font-size: 0.7rem;
     padding: 10px 0;
     position: fixed;
-    top: 730px;
-    /* bottom: -50px; */
+    top: 670px;
     width: 100%;
-  }
+  } */
+
+  footer {
+    width: 96%;
+    /* background-color: #1e1e1e; */
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    /* font-size: 14px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    flex-wrap: wrap; /* wrap content if it's too long */
+  }  
 
   .footer-name{
     font-size: 1rem;
@@ -747,6 +763,7 @@ ul{
 
 /*  Responsive Design - Adjustments for Tablets */
 @media (max-width: 768px) {
+  
 
   .chat-messages {
     max-height: 66vh;
@@ -854,6 +871,13 @@ ul{
 
 /*  Responsive Design - Mobile */
 @media (max-width: 480px) {
+
+  footer {
+    font-size: 12px;
+    padding: 10px 15px;
+    flex-direction: column;
+    text-align: center;
+  }
 
   
     .dashboard-container {
