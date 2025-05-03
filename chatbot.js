@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     try {
       // Send message to your backend
-      const response = await fetch("/api/chat", {
+      const response = await fetch("https://login-system-backend-1.onrender.com/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
