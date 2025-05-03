@@ -132,7 +132,7 @@ p {
   }  
 
   .footer-name{
-    font-size: 1rem;
+    font-size: 1.1rem;
     cursor: pointer;
     text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.751);
     color: white;
@@ -219,7 +219,7 @@ p {
 
 .spinner {
   border: 6px solid #f3f3f3;
-  border-top: 6px solid #564caf; 
+  border-top: 6px solid #2575fc; 
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -626,7 +626,7 @@ ul{
   background-color: rgba(33, 33, 33, 0.24); 
   color: white;
   border-radius: 20px;
-  transition: left 0.3s ease;
+  transition: left 0.4s ease;
   z-index: 9997;
   padding: 1rem;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
@@ -864,7 +864,7 @@ ul{
   }
 
   .popup {
-    top: 500px;
+    top: 400px;
     left: 200px;
 }
 }
@@ -872,14 +872,13 @@ ul{
 /*  Responsive Design - Mobile */
 @media (max-width: 480px) {
 
-  footer {
-    font-size: 12px;
-    padding: 10px 15px;
-    flex-direction: column;
-    text-align: center;
+    footer {
+      /* font-size: 12px;   */
+      padding: 10px 15px;
+      flex-direction: column;
+      text-align: center;
   }
 
-  
     .dashboard-container {
         padding: 10px;
     }

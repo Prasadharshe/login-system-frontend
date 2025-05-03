@@ -8,24 +8,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const confirmBtn = document.getElementById("confirmClear");
   const cancelBtn = document.getElementById("cancelClear");
 
-  // logic for clear button 
+  // Clear chat logic with popup
   clearChatButton.addEventListener("click", () => {
-    // localStorage.removeItem("chatMessages"); // Clear stored messages. Without the pop up, directly clear the chats after click on clear button
-    // messageContainer.innerHTML = ""; // Clear UI  
-    popup.style.display = "flex"; // Show the popup
-  });
-
-  cancelBtn.addEventListener("click", () => {
-    popup.style.display = "none"; // Close without clearing
+    popup.style.display = "flex";
   });
   
-  confirmBtn.addEventListener("click", () => {
-    localStorage.removeItem("chatMessages");
-    messageContainer.innerHTML = ""; // Clear UI
-    popup.style.display = "none"; // Close popup
+  cancelBtn.addEventListener("click", () => {
+    popup.style.display = "none";
   });
 
-  // Load saved messages on page load
+  confirmBtn.addEventListener("click", () => {
+    localStorage.removeItem("chatMessages");
+    messageContainer.innerHTML = "";
+    popup.style.display = "none";
+  });
+
+  // Load saved messages
   const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
   savedMessages.forEach((msg) => addMessage(msg.text, msg.isUser));
 
@@ -47,20 +45,67 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollToBottom();
   }
 
-  sendButton.addEventListener("click", () => {
+  async function fetchAIReply(input) {
+    try {
+      const res = await fetch("https://login-system-backend-1.onrender.com/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: input }),
+      });
+
+      const data = await res.json();
+      return data.reply || "🤖 Sorry, I didn’t understand that.";
+    } catch (err) {
+      console.error("AI fetch error:", err);
+      return "⚠️ Error reaching AI server.";
+    }
+  }
+
+  // sendButton.addEventListener("click", async () => {
+  //   const input = inputField.value.trim();
+  //   if (input === "") return;
+
+  //   addMessage(input, true);
+  //   saveMessage(input, true);
+  //   inputField.value = "";
+
+  //   // Fetch AI response from backend
+  //   const aiReply = await fetchAIReply(input);
+  //   addMessage(aiReply, false);
+  //   saveMessage(aiReply, false);
+  // });
+
+  sendButton.addEventListener("click", async () => {
     const input = inputField.value.trim();
     if (input === "") return;
-
+  
     addMessage(input, true);
     saveMessage(input, true);
     inputField.value = "";
-
-    setTimeout(() => {
-      const reply = `🤖 You said: "${input}"`;
-      addMessage(reply, false);
-      saveMessage(reply, false); // ✅ This line saves bot response
-    }, 600);
-  });
+  
+    try {
+      // Send message to your backend
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: input }),
+      });
+  
+      const data = await response.json();
+  
+      if (data.reply) {
+        addMessage(data.reply, false);
+        saveMessage(data.reply, false);
+      } else {
+        addMessage("⚠️ No reply received from AI", false);
+      }
+    } catch (error) {
+      console.error("Chatbot Error:", error);
+      addMessage("❌ Error talking to AI", false);
+    }
+  });  
 
   inputField.addEventListener("keydown", (e) => {
     if (e.key === "Enter") sendButton.click();

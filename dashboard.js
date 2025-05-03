@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Retrieve username from localStorage
   const username = localStorage.getItem("username") || "User";
   const usernameElement = document.getElementById("username");
   const notesSidebar = document.getElementById("notesSidebar");
@@ -10,38 +9,50 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutButton = document.querySelector(".logout-button");
   const confirmLogout = document.getElementById("confirmLogout");
   const cancelLogout = document.getElementById("cancelLogout");
-  // const notesArea = document.getElementById("notesArea");
   const overlay = document.getElementById("overlay");
   const settingsSidebar = document.getElementById("settingsSidebar");
   const settingsToggle = document.getElementById("settingsToggle");
   const closeSettingsBtn = document.getElementById("closeSettingsBtn");
-  document.getElementById("exportTxtBtn").addEventListener("click", exportNotesAsTxt);
-  document.getElementById("exportJsonBtn").addEventListener("click", exportNotesAsJson);
-  const lastLogin = localStorage.getItem("lastLogin");
+
+  // ✅ Display last login and device info
+  const storedLastLogin = localStorage.getItem("lastLogin");
   const loginDevice = localStorage.getItem("loginDevice");
 
-  if (lastLogin) {
-    document.getElementById("lastLogin").textContent = new Date(parseInt(lastLogin)).toLocaleString();
-  }
-  if (loginDevice) {
-    document.getElementById("deviceInfo").textContent = loginDevice;
+  const lastLoginElement = document.getElementById("lastLogin");
+  if (lastLoginElement) {
+    lastLoginElement.textContent = storedLastLogin || "Not available";
   }
 
-    // Check if session start is already saved, if not, set it
-  if (!localStorage.getItem("sessionStart")) {
-    localStorage.setItem("sessionStart", Date.now());
+  const deviceInfoElement = document.getElementById("deviceInfo");
+  if (deviceInfoElement) {
+    deviceInfoElement.textContent = loginDevice || "Unknown";
   }
 
-  // Session timer
-  let startTime = parseInt(localStorage.getItem("sessionStart"), 10);
+  // ✅ Session Timer
+  const sessionStart = parseInt(localStorage.getItem("sessionStart"), 10);
+  if (!isNaN(sessionStart)) {
+    setInterval(() => {
+      const elapsed = Date.now() - sessionStart;
+      const hours = Math.floor(elapsed / 3600000);
+      const minutes = Math.floor((elapsed % 3600000) / 60000);
+      const seconds = Math.floor((elapsed % 60000) / 1000);
+      document.getElementById("sessionDuration").textContent = `Active for ${hours
+        .toString()
+        .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds
+        .toString()
+        .padStart(2, "0")}`;
+    }, 1000);
+  } else {
+    document.getElementById("sessionDuration").textContent = "Active for 00:00:00";
+  }
 
-  setInterval(() => {
-    const elapsed = Date.now() - startTime;
-    const minutes = Math.floor(elapsed / 60000);
-    const seconds = Math.floor((elapsed % 60000) / 1000);
-    document.getElementById("sessionDuration").textContent =
-      `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-  }, 1000);
+  // ✅ Note Export Functions
+  document
+    .getElementById("exportTxtBtn")
+    .addEventListener("click", exportNotesAsTxt);
+  document
+    .getElementById("exportJsonBtn")
+    .addEventListener("click", exportNotesAsJson);
 
   function exportNotesAsTxt() {
     const notes = localStorage.getItem("myNote") || "";
@@ -49,77 +60,63 @@ document.addEventListener("DOMContentLoaded", () => {
     const url = URL.createObjectURL(blob);
     downloadFile(url, "Notes.txt");
   }
-  
+
   function exportNotesAsJson() {
     const notes = { note: localStorage.getItem("myNote") || "" };
-    const blob = new Blob([JSON.stringify(notes, null, 2)], { type: "application/json" });
+    const blob = new Blob([JSON.stringify(notes, null, 2)], {
+      type: "application/json",
+    });
     const url = URL.createObjectURL(blob);
     downloadFile(url, "Notes.json");
   }
-  
+
   function downloadFile(url, filename) {
     const a = document.createElement("a");
     a.href = url;
     a.download = filename;
     a.click();
     URL.revokeObjectURL(url);
-  }  
+  }
 
+  // ✅ Sidebar toggle
   if (settingsToggle && settingsSidebar && closeSettingsBtn) {
     settingsToggle.addEventListener("click", (e) => {
       e.preventDefault();
       settingsSidebar.classList.add("show");
       overlay.classList.add("show");
     });
-  
+
     closeSettingsBtn.addEventListener("click", () => {
       settingsSidebar.classList.remove("show");
       overlay.classList.remove("show");
     });
   }
 
-   // Open Notes and show overlay
-   notesToggle.addEventListener("click", (e) => {
+  notesToggle.addEventListener("click", (e) => {
     e.preventDefault();
     notesSidebar.classList.add("show");
     overlay.classList.add("show");
   });
 
-  // Close Notes and hide overlay
   closeNotesBtn.addEventListener("click", () => {
     notesSidebar.classList.remove("show");
     overlay.classList.remove("show");
   });
 
-  // Also close Notes if user clicks the overlay
-  // overlay.addEventListener("click", () => {
-  //   notesSidebar.classList.remove("show");
-  //   overlay.classList.remove("show");
-  // });
-
-    notesToggle.addEventListener("click", () => {
-      notesSidebar.classList.add("show");
-    });
-  
-    // closeNotesBtn.addEventListener("click", () => {
-    //   notesSidebar.classList.remove("show");
-    // });
-  
-
+  // ✅ Username
   if (usernameElement) {
-    usernameElement.textContent = username; // Use 'username' instead of 'user.name'
+    usernameElement.textContent = username;
   } else {
     console.error("⚠️ Element with ID 'username' not found in HTML.");
   }
 
-  // Handle Hamburger Menu Click
+  // ✅ Hamburger menu
   if (hamburger && navUl) {
     hamburger.addEventListener("click", () => {
       hamburger.classList.toggle("cross");
       navUl.classList.toggle("show");
     });
 
-  // Close menu if window resizes above 769px
     window.addEventListener("resize", () => {
       if (window.innerWidth > 769) {
         navUl.classList.remove("show");
@@ -130,68 +127,59 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("⚠️ Hamburger menu or navigation not found.");
   }
 
-  // Handle Logout Button Click (With Confirmation)
+  // ✅ Logout confirmation
   if (logoutButton) {
     logoutButton.addEventListener("click", () => {
-      showLogoutPopup();
+      const popup = document.getElementById("logoutPopup");
+      if (popup) popup.style.display = "block";
     });
   }
 
-  function showLogoutPopup() {
-    const popup = document.getElementById("logoutPopup");
-    if (popup) {
-      popup.style.display = "block";
-    } else {
-      console.error("⚠️ Logout popup not found in HTML.");
-    }
-  }
-
-  // Handle Yes (Logout)
   if (confirmLogout) {
     confirmLogout.addEventListener("click", () => {
-      localStorage.clear(); // Clear everything (token, username, etc.)
-  
-      document.getElementById("logoutPopup").style.display = "none"; // Hide the popup
-  
-      window.location.href = "index.html"; // Redirect to login page
+      const lastLogin = localStorage.getItem("lastLogin");
+      const loginDevice = localStorage.getItem("loginDevice");
+
+      localStorage.clear();
+
+      if (lastLogin) localStorage.setItem("lastLogin", lastLogin);
+      if (loginDevice) localStorage.setItem("loginDevice", loginDevice);
+
+      document.getElementById("logoutPopup").style.display = "none";
+      window.location.href = "index.html";
     });
   }
 
-  // Handle No (Cancel)
   if (cancelLogout) {
     cancelLogout.addEventListener("click", () => {
-      document.getElementById("logoutPopup").style.display = "none"; // Hide popup
+      document.getElementById("logoutPopup").style.display = "none";
     });
   }
+
+  // ✅ Notes: Load & Save
+  const notesArea = document.getElementById("notesArea");
+  const savedNote = localStorage.getItem("myNote");
+  if (notesArea && savedNote) {
+    notesArea.value = savedNote;
+  }
+
+  window.saveNote = function () {
+    const text = document.getElementById("notesArea").value;
+    localStorage.setItem("myNote", text);
+    alert("Note saved!");
+  };
+
+  window.clearNote = function () {
+    document.getElementById("notesArea").value = "";
+    localStorage.removeItem("myNote");
+    alert("Note cleared!");
+  };
 });
 
-// Toggle Menu Function (For External Use If Needed)
+// External toggle function (optional)
 function toggleMenu() {
   const navUl = document.querySelector(".nav-left");
   if (navUl) {
     navUl.classList.toggle("show");
   }
-}
-  // Load saved note
-  const savedNote = localStorage.getItem("myNote");
-  if (savedNote) {
-    notesArea.value = savedNote;
-  }
-
-  // Toggle sidebar
-  notesToggle.addEventListener("click", (e) => {
-    e.preventDefault();
-    notesSidebar.classList.toggle("show");
-  });
-
-function saveNote() {
-  const text = document.getElementById("notesArea").value;
-  localStorage.setItem("myNote", text);
-  alert("Note saved!");
-}
-
-function clearNote() {
-  document.getElementById("notesArea").value = "";
-  localStorage.removeItem("myNote");
-  alert("Note cleared!");
 }
